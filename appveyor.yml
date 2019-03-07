@@ -2,7 +2,6 @@ build: false
 
 environment:
     PYTHON: "C:\\Python37"
-    CONAN_UPLOAD_ONLY_WHEN_STABLE: "1"
 
     matrix:
         # Todo: Try make MinGW builds work
@@ -33,4 +32,5 @@ install:
   - conan user # It creates the conan data directory
 
 test_script:
-  - python build.py
+  - conan create . appveyor/testing
+#  - python build.py
