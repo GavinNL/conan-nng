@@ -4,7 +4,6 @@
 from conans import ConanFile, CMake, tools
 import os
 
-
 class NngConan(ConanFile):
     name = "nng"
     version = "1.0.1"
@@ -19,6 +18,7 @@ class NngConan(ConanFile):
     short_paths = True
     generators = "cmake"
     source_subfolder = "source_subfolder"
+    build_subfolder = "build_subfolder"
     options = {
        "shared": [True, False],
        "enable_tests": [True, False],
@@ -42,13 +42,13 @@ class NngConan(ConanFile):
     def configure(self):
         del self.settings.compiler.libcxx
         if self.settings.compiler == "Visual Studio" and float(self.settings.compiler.version.value) < 14:
-            raise Exception("ngg could be built by MSVC <14")
+            raise Exception("ngg could not be built by MSVC <14")
 
     def configure_cmake(self):
         cmake = CMake(self)
         cmake.definitions["NNG_TESTS"] = self.options.enable_tests
         cmake.definitions["NNG_ENABLE_NNGCAT"] = self.options.enable_nngcat
-        cmake.configure()
+        cmake.configure(source_folder=self.source_subfolder, build_folder=self.build_subfolder)
         return cmake
 
     def build(self):
