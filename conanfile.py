@@ -6,7 +6,7 @@ import os
 
 class NngConan(ConanFile):
     name = "nng"
-    version = "1.0.1"
+    version = "1.1.1"
     url = "https://github.com/gavinNL/conan-nng"
     homepage = "https://github.com/nanomsg/nng"
     author = "Gavin Wolf"
